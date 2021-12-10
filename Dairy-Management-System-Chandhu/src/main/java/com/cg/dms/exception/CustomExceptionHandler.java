@@ -124,8 +124,24 @@ class CustomExceptionHandler {
 	public ResponseEntity<Object> handleAppUserAlreadyExistsException() {
 		LOG.error("handleAppUserAlreadyExistsException");
 		HttpHeaders headers = new HttpHeaders();
-		headers.add("", null);
+		headers.add("message", "This user Already existed");
 		return null;
+	}
+	
+	@ExceptionHandler(BillNotFoundException.class)
+	public ResponseEntity<Object> handleBillNotFoundException(){
+		LOG.error("handleBillNotFoundException");
+		HttpHeaders headers=new HttpHeaders();
+		headers.add("message", "Bill data not Found");
+		return new ResponseEntity<Object>(null,headers,HttpStatus.NOT_FOUND);
+		
+	}
+	@ExceptionHandler(InvalidTransactionException.class)
+	public ResponseEntity<Object> handleInvalidTransactionException(){
+		LOG.error("handleInvalidTransactionException");
+		HttpHeaders headers=new HttpHeaders();
+		headers.add("message","Invalid Transaction Details Provided");
+		return new ResponseEntity<Object>(null,headers,HttpStatus.BAD_REQUEST);
 	}
 
 }

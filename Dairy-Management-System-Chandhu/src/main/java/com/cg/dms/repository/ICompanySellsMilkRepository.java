@@ -3,9 +3,9 @@ package com.cg.dms.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.cg.dms.entities.DealerPayment;
+import com.cg.dms.entities.CompanySellsMilk;
 
 @Repository
-public interface IDealerPaymentRepository extends JpaRepository<DealerPayment, Integer> {
+public interface ICompanySellsMilkRepository extends JpaRepository<CompanySellsMilk, Integer> {
 
 }

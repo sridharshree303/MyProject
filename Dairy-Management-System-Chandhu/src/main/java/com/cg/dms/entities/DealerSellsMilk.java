@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="Company_Sell_Milk_table")
-public class DealerPayment extends Payment {
+public class DealerSellsMilk extends Payment {
 
 	/**
 	 * 

@@ -3,11 +3,11 @@ package com.cg.dms.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cg.dms.service.DealerPaymentService;
+import com.cg.dms.service.CompanySellsMilkService;
 
 @RestController
 public class DealerPaymentController {
 
 	@Autowired
-	private DealerPaymentService idealerPaymentService;
+	private CompanySellsMilkService idealerPaymentService;
 }

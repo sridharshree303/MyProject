@@ -1,12 +1,14 @@
 package com.cg.dms.entities;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @MappedSuperclass
 public class Payment implements Serializable {
@@ -18,16 +20,16 @@ public class Payment implements Serializable {
 
 	@Id
 	private int paymentId;
-	
+
 	@Column
-	private LocalDate date;
-	
+	private LocalDateTime dateTime;
+
 	@NotNull(message = "Bill number shouble be manadatory*")
 	private float bill;
-	
+
 	@NotNull
 	private int milkUnits;
-	
+
 	private double unitPrice;
 
 	public int getPaymentId() {
@@ -38,12 +40,12 @@ public class Payment implements Serializable {
 		this.paymentId = paymentId;
 	}
 
-	public LocalDate getDate() {
-		return date;
+	public LocalDateTime getDateTime() {
+		return dateTime;
 	}
 
-	public void setDate(LocalDate date) {
-		this.date = date;
+	public void setDateTime(LocalDateTime dateTime) {
+		this.dateTime = dateTime;
 	}
 
 	public float getBill() {
@@ -69,7 +71,5 @@ public class Payment implements Serializable {
 	public void setUnitPrice(double unitPrice) {
 		this.unitPrice = unitPrice;
 	}
-
-	
 
 }
