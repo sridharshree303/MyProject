@@ -1,8 +1,9 @@
 package com.cg.dms.entities;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
+import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
@@ -17,11 +18,16 @@ public class Payment implements Serializable {
 
 	@Id
 	private int paymentId;
-	private LocalDateTime dateTime;
+	
+	@Column
+	private LocalDate date;
+	
 	@NotNull(message = "Bill number shouble be manadatory*")
 	private float bill;
+	
 	@NotNull
 	private int milkUnits;
+	
 	private double unitPrice;
 
 	public int getPaymentId() {
@@ -32,12 +38,12 @@ public class Payment implements Serializable {
 		this.paymentId = paymentId;
 	}
 
-	public LocalDateTime getDateTime() {
-		return dateTime;
+	public LocalDate getDate() {
+		return date;
 	}
 
-	public void setDateTime(LocalDateTime dateTime) {
-		this.dateTime = dateTime;
+	public void setDate(LocalDate date) {
+		this.date = date;
 	}
 
 	public float getBill() {
@@ -63,5 +69,7 @@ public class Payment implements Serializable {
 	public void setUnitPrice(double unitPrice) {
 		this.unitPrice = unitPrice;
 	}
+
+	
 
 }
