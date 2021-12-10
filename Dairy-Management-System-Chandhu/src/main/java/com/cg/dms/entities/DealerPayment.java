@@ -6,7 +6,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="delearpayment_table")
+@Table(name="Company_Sell_Milk_table")
 public class DealerPayment extends Payment {
 
 	/**
@@ -16,7 +16,7 @@ public class DealerPayment extends Payment {
 	
 
 	@ManyToOne
-	@JoinColumn(name = "id")
+	@JoinColumn(name = "companyId")
 	private Company company;
 	
 	@ManyToOne

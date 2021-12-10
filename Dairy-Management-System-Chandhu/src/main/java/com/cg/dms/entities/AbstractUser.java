@@ -4,7 +4,6 @@ import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -13,22 +12,24 @@ public abstract class AbstractUser {
 	
 	@NotNull
 	private String userName;
+	
 	@NotNull
 	private String firstName;
+	
 	@NotNull
 	private String lastName;
+	
 	@NotNull
 	@Size(min = 4, max = 10)
 	private String password;
+	
 	@Column(length = 10)
 	private String mobileNumber;
+	
 	@Email
 	@NotBlank
 	private String email;
-	@NotNull
-	private int milkunits;
-	@NotEmpty
-	private double unitprice;
+
 
 	public String getUsername() {
 		return userName;
@@ -78,19 +79,14 @@ public abstract class AbstractUser {
 		this.email = email;
 	}
 
-	public int getMilkunits() {
-		return milkunits;
-	}
-
-	public void setMilkunits(int milkunits) {
-		this.milkunits = milkunits;
-	}
-
-	public double getUnitprice() {
-		return unitprice;
-	}
-
-	public void setUnitprice(double unitprice) {
-		this.unitprice = unitprice;
-	}
 }
+
+
+
+
+
+
+//@NotNull
+//private int milkunits;
+//@NotEmpty
+//private double unitprice;

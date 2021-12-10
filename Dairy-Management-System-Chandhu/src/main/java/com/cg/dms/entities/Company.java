@@ -7,7 +7,7 @@ public class Company {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private int companyId;
 
 	private String companyName;
 
@@ -20,9 +20,14 @@ public class Company {
 	private String address;
 
 	public Company() {
+		super();
+		
 	}
 
-	public Company(String companyName, String email, String password, String mobileNumber, String address) {
+	public Company(int companyId, String companyName, String email, String password, String mobileNumber,
+			String address) {
+		super();
+		this.companyId = companyId;
 		this.companyName = companyName;
 		this.email = email;
 		this.password = password;
@@ -30,12 +35,12 @@ public class Company {
 		this.address = address;
 	}
 
-	public int getId() {
-		return id;
+	public int getCompanyId() {
+		return companyId;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setCompanyId(int companyId) {
+		this.companyId = companyId;
 	}
 
 	public String getCompanyName() {
@@ -77,4 +82,12 @@ public class Company {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+
+	@Override
+	public String toString() {
+		return "Company [companyId=" + companyId + ", companyName=" + companyName + ", email=" + email + ", password="
+				+ password + ", mobileNumber=" + mobileNumber + ", address=" + address + "]";
+	}
+	
+
 }

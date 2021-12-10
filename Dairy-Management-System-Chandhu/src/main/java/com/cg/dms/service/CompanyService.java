@@ -32,9 +32,9 @@ public class CompanyService implements ICompanyService {
 	// public Company insertCompany(Company company);
 	public Company insertCompany(Company company) throws CustomerAlreadyExistsException {  
 		LOG.info("Service addCompany");
-		if (iCompanyRepository.existsById(company.getId())) {    // if true 
+		if (iCompanyRepository.existsById(company.getCompanyId())) {    // if true 
 			LOG.info("Company Data is already exists");
-			throw new CustomerAlreadyExistsException(company.getId() + "Company already exists");
+			throw new CustomerAlreadyExistsException(company.getCompanyId() + "Company already exists");
 		} else {                                 // if false
 			LOG.info("New Company is Added");
 			return iCompanyRepository.save(company);
@@ -59,7 +59,7 @@ public class CompanyService implements ICompanyService {
 	// CompanyNotFoundException;
 	public Company updateCompany(Company company) throws CompanyNotFoundException {
 		LOG.info("Service companyDealer");
-		if (iCompanyRepository.existsById(company.getId())) {
+		if (iCompanyRepository.existsById(company.getCompanyId())) {
 			LOG.info("Company Data is Updated");
 			return iCompanyRepository.save(company);
 		} else {
