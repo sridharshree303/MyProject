@@ -7,13 +7,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cg.dms.entities.Company;
 import com.cg.dms.entities.CompanyBuysMilk;
+import com.cg.dms.entities.Farmer;
 import com.cg.dms.entities.Payment;
 import com.cg.dms.exception.InvalidTransactionException;
 import com.cg.dms.exception.PaymentAlreadyFoundException;
 import com.cg.dms.repository.ICompanyBuysMilkRepository;
+import com.cg.dms.repository.ICompanyRepository;
 import com.cg.dms.repository.ICompanySellsMilkRepository;
 import com.cg.dms.repository.IDealerSellsMilkRepository;
+import com.cg.dms.repository.IFarmerRepository;
 import com.cg.dms.repository.IPaymentRepository;
 
 @Service
@@ -23,23 +27,35 @@ public class PaymentService {
 	@Autowired
 	private IPaymentRepository ipaymentrepository;
 	@Autowired
+	private IFarmerRepository iFarmerRepository;
+	@Autowired
+	private ICompanyRepository iCompanyRepository;
+	@Autowired
 	private IDealerSellsMilkRepository idealersellsmilkrepository;
 	@Autowired
 	private ICompanyBuysMilkRepository icompanybuysmilkrepository;
 	@Autowired
 	private ICompanySellsMilkRepository icompanysellsmilkrepository;
 
-	public Payment companyBuysMilkData(CompanyBuysMilk transaction) throws InvalidTransactionException,PaymentAlreadyFoundException {
-		LOG.info("Company Buys Milk From Farmer ");
-		Optional<CompanyBuysMilk> company = icompanybuysmilkrepository.findById(transaction.getPaymentId());
-		if (company.isPresent()) {
-			throw new InvalidTransactionException(transaction.getPaymentId() + " Invalid Buy Order ");
-		} else {
-			LOG.info("Company  into farmer payment");
+	public Payment companyBuysMilkData(CompanyBuysMilk transaction)//,Company companyId,Farmer farmerId
+			throws InvalidTransactionException, PaymentAlreadyFoundException {
+//		Optional<Company> cmp = iCompanyRepository.findById(company.getCompanyId());
+//		Optional<Farmer> frm = iFarmerRepository.findById(farmer.getFarmerId());
+		boolean cmp = iCompanyRepository.existsById(transaction.getCompany().getCompanyId());
+		boolean frm = iFarmerRepository.existsById(transaction.getFarmer().getFarmerId());	
+		LOG.info("company : "+cmp);
+		LOG.info("farmer : "+frm);
+		
+		
+		if (frm&&cmp) {
+			LOG.info("Transaction Successful ");
 			return icompanybuysmilkrepository.save(transaction);
+		} else {
+			LOG.info("Transaction unsuccessfu;");
+			throw new InvalidTransactionException(transaction.getPaymentId() + " Invalid Buy Order ");
 		}
-
 	}
+	
 
 ////	public Payment insertDealerToComapnyPayment(Payment payment)throws PaymentNotFoundException;
 //	public Payment insertDealerToComapnyPayment(DealerSellsMilk payment) throws PaymentAlreadyFoundException {
@@ -79,3 +95,12 @@ public class PaymentService {
 //	}
 
 }
+
+
+
+////Company ce = new Company();
+//Farmer fm = new Farmer();
+//LOG.info("Company Buys Milk From Farmer ");
+//boolean cmp = iCompanyRepository.existsById(company.getCompanyId());
+//LOG.info("boolean :"+cmp);
+//boolean frm = iFarmerRepository.existsById(fm.getFarmerId());	

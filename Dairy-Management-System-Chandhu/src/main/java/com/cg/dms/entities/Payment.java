@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
@@ -19,6 +21,7 @@ public class Payment implements Serializable {
 	private static final long serialVersionUID = 8033530529788101286L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int paymentId;
 
 	@Column

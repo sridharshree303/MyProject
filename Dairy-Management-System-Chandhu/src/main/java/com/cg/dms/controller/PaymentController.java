@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cg.dms.entities.Company;
 import com.cg.dms.entities.CompanyBuysMilk;
+import com.cg.dms.entities.Farmer;
 import com.cg.dms.entities.Payment;
 import com.cg.dms.exception.InvalidTransactionException;
 import com.cg.dms.service.CompanyBuysMilkService;
@@ -32,10 +34,10 @@ public class PaymentController {
 	
 	@PostMapping("/payment/company/buys")
 	public ResponseEntity<Payment> companyBuyMilk(@Valid @RequestBody CompanyBuysMilk transaction) throws InvalidTransactionException{
-		LOG.info("CompanyBuysMilkDataController ");
+		LOG.info("CompanyBuysMilkDataController");
 		Payment pay = paymentservice.companyBuysMilkData(transaction);
 		HttpHeaders headers = new HttpHeaders();
-		headers.add("message","Company buys milk from farmer");
+		headers.add("message",transaction.getCompany().getCompanyName()+"buys milk from farmer"+transaction.getFarmer().getfirstName());
 		ResponseEntity<Payment> response = new ResponseEntity<Payment>(pay,headers,HttpStatus.OK);
 		return response;
 	}
@@ -45,7 +47,7 @@ public class PaymentController {
 //	@PostMapping("/payment/insert/dealer")
 //	public ResponseEntity<Payment> insertDealerToCompanyPayment(@Valid @RequestBody DealerSellsMilk payment){
 //		LOG.info("insert Dealer to company");
-//		Payment pay = paymentservice.insertDealerToComapnyPayment(DealerSellsMilk payment);
+//		Payment pay = paymentservice.insertDealerToComapnyPayment(payment);
 //		HttpHeaders headers = new HttpHeaders();
 //		headers.add("message", "New dealer Payment is added");
 //		ResponseEntity<Payment> response = new ResponseEntity<Payment>(pay,headers,HttpStatus.OK);
