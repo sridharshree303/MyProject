@@ -1,5 +1,6 @@
 package com.cg.dms.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.cg.dms.entities.Company;
 import com.cg.dms.entities.CompanyBuysMilk;
+import com.cg.dms.entities.CompanySellsMilk;
+import com.cg.dms.entities.DealerSellsMilk;
 import com.cg.dms.entities.Farmer;
 import com.cg.dms.entities.Payment;
 import com.cg.dms.exception.InvalidTransactionException;
@@ -16,7 +19,9 @@ import com.cg.dms.exception.PaymentAlreadyFoundException;
 import com.cg.dms.repository.ICompanyBuysMilkRepository;
 import com.cg.dms.repository.ICompanyRepository;
 import com.cg.dms.repository.ICompanySellsMilkRepository;
+import com.cg.dms.repository.ICustomerRepository;
 import com.cg.dms.repository.IDealerSellsMilkRepository;
+import com.cg.dms.repository.IDelearRepository;
 import com.cg.dms.repository.IFarmerRepository;
 import com.cg.dms.repository.IPaymentRepository;
 
@@ -29,7 +34,11 @@ public class PaymentService {
 	@Autowired
 	private IFarmerRepository iFarmerRepository;
 	@Autowired
+	private IDelearRepository iDealerRepository;
+	@Autowired
 	private ICompanyRepository iCompanyRepository;
+	@Autowired
+	private ICustomerRepository icustomerRepository;
 	@Autowired
 	private IDealerSellsMilkRepository idealersellsmilkrepository;
 	@Autowired
@@ -37,22 +46,45 @@ public class PaymentService {
 	@Autowired
 	private ICompanySellsMilkRepository icompanysellsmilkrepository;
 
-	public Payment companyBuysMilkData(CompanyBuysMilk transaction)//,Company companyId,Farmer farmerId
+	public Payment companyBuysMilkData(CompanyBuysMilk transaction)// ,Company companyId,Farmer farmerId
 			throws InvalidTransactionException, PaymentAlreadyFoundException {
-//		Optional<Company> cmp = iCompanyRepository.findById(company.getCompanyId());
-//		Optional<Farmer> frm = iFarmerRepository.findById(farmer.getFarmerId());
+
 		boolean cmp = iCompanyRepository.existsById(transaction.getCompany().getCompanyId());
-		boolean frm = iFarmerRepository.existsById(transaction.getFarmer().getFarmerId());	
-		LOG.info("company : "+cmp);
-		LOG.info("farmer : "+frm);
-		
-		
-		if (frm&&cmp) {
+		boolean frm = iFarmerRepository.existsById(transaction.getFarmer().getFarmerId());
+		if (frm && cmp) {
 			LOG.info("Transaction Successful ");
 			return icompanybuysmilkrepository.save(transaction);
 		} else {
 			LOG.info("Transaction unsuccessfu;");
 			throw new InvalidTransactionException(transaction.getPaymentId() + " Invalid Buy Order ");
+		}
+	}
+
+	public Payment companySellsMilkData(CompanySellsMilk transaction)
+			throws InvalidTransactionException, PaymentAlreadyFoundException {
+
+		boolean cmp = iCompanyRepository.existsById(transaction.getCompany().getCompanyId());
+		boolean deal = iDealerRepository.existsById(transaction.getDealer().getDealerId());
+		if (deal && cmp) {
+			LOG.info("Transaction Successful ");
+			return icompanysellsmilkrepository.save(transaction);
+		} else {
+			LOG.info("Transaction unsuccessfu;");
+			throw new InvalidTransactionException(transaction.getPaymentId() + " Invalid Sell Order ");
+		}
+	}
+	
+	public Payment dealerSellsMilkData(DealerSellsMilk transaction)
+			throws InvalidTransactionException, PaymentAlreadyFoundException {
+
+		boolean cmp = icustomerRepository.existsById(transaction.getCustomer().getCustomerId());
+		boolean deal = iDealerRepository.existsById(transaction.getDealer().getDealerId());
+		if (deal && cmp) {
+			LOG.info("Transaction Successful ");
+			return idealersellsmilkrepository.save(transaction);
+		} else {
+			LOG.info("Transaction unsuccessfu;");
+			throw new InvalidTransactionException(transaction.getPaymentId() + " Invalid Sell Order ");
 		}
 	}
 	
@@ -95,12 +127,3 @@ public class PaymentService {
 //	}
 
 }
-
-
-
-////Company ce = new Company();
-//Farmer fm = new Farmer();
-//LOG.info("Company Buys Milk From Farmer ");
-//boolean cmp = iCompanyRepository.existsById(company.getCompanyId());
-//LOG.info("boolean :"+cmp);
-//boolean frm = iFarmerRepository.existsById(fm.getFarmerId());	

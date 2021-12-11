@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cg.dms.service.CompanySellsMilkService;
 
 @RestController
-public class DealerPaymentController {
+public class CompanySellsMilkController {
 
 	@Autowired
-	private CompanySellsMilkService idealerPaymentService;
+	private CompanySellsMilkService companysellsmilkservice;
 }
