@@ -8,7 +8,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name="Company_Buy_Milk_table")
 public class CompanyBuysMilk extends Payment{
-
 	
 	/**
 	 * 

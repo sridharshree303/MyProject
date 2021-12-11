@@ -1,7 +1,9 @@
 package com.cg.dms.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +16,8 @@ import com.cg.dms.entities.CompanySellsMilk;
 import com.cg.dms.entities.DealerSellsMilk;
 import com.cg.dms.entities.Farmer;
 import com.cg.dms.entities.Payment;
+import com.cg.dms.exception.CompanyNotFoundException;
+import com.cg.dms.exception.FarmerNotFoundException;
 import com.cg.dms.exception.InvalidTransactionException;
 import com.cg.dms.exception.PaymentAlreadyFoundException;
 import com.cg.dms.repository.ICompanyBuysMilkRepository;
@@ -73,7 +77,7 @@ public class PaymentService {
 			throw new InvalidTransactionException(transaction.getPaymentId() + " Invalid Sell Order ");
 		}
 	}
-	
+
 	public Payment dealerSellsMilkData(DealerSellsMilk transaction)
 			throws InvalidTransactionException, PaymentAlreadyFoundException {
 
@@ -87,43 +91,31 @@ public class PaymentService {
 			throw new InvalidTransactionException(transaction.getPaymentId() + " Invalid Sell Order ");
 		}
 	}
-	
 
-////	public Payment insertDealerToComapnyPayment(Payment payment)throws PaymentNotFoundException;
-//	public Payment insertDealerToComapnyPayment(DealerSellsMilk payment) throws PaymentAlreadyFoundException {
-//		LOG.info("Insert Dealer to Company Payment");
-//		Optional<DealerSellsMilk> dealer = idealerpaymentrepo.findById(payment.getPaymentId());
-//		if (dealer.isPresent()) {
-//			throw new PaymentAlreadyFoundException(payment.getPaymentId() + " PaymentId already found");
-//		} else {
-//			LOG.info("Insert dealer into company payment");
-//			return ipaymentrepository.save(payment);
-//		}
-//
-//	}    
-//	            
-//	public Payment insertCompanyToFarmerPayment(CompanyBuysMilk payment) throws PaymentAlreadyFoundException {
-//
-//		LOG.info("Insert Comapany To Farmer ");
-//		Optional<CompanyBuysMilk> company = icompanybuysmilkrepository.findById(payment.getPaymentId());
-//		if (company.isPresent()) {
-//			throw new PaymentAlreadyFoundException(payment.getPaymentId() + "PaymentId already found ");
-//		} else {
-//			LOG.info("Insert company into farmer payment");
-//			return icompanybuysmilkrepository.save(payment);
-//		}
-//
-//	}
-//
-//	public Payment insertCustomerToDelearPayment(CompanySellsMilk payment) throws PaymentAlreadyFoundException {
-//		LOG.info("Insert Customer to Dealer ");
-//		Optional<CompanySellsMilk> customer = icustomerpaymentrepository.findById(payment.getPaymentId());
-//		if (customer.isPresent()) {
-//			throw new PaymentAlreadyFoundException(payment.getPaymentId() + "PaymentId already found");
-//		} else {
-//			LOG.info("Insert Customer into Dealer ");
-//			return icustomerpaymentrepository.save(payment);
-//		}
-//	}
+	public List<CompanyBuysMilk> findByCompanyIdAndFarmerId(int companyId , int farmerId)
+			throws FarmerNotFoundException, CompanyNotFoundException {
+		LOG.info("View company Transactions by FarmerId");
+		boolean farmId = icompanybuysmilkrepository.existsById(companyId);
+		boolean compId = icompanybuysmilkrepository.existsById(farmerId);
+		List<CompanyBuysMilk> lst = new ArrayList<CompanyBuysMilk>();
+		if (compId) {
+			LOG.info("CompanyId is Valid");
+			if (farmId) {
+				LOG.info("FarmerId is Valid");
+				List<CompanyBuysMilk> list = lst.stream().filter(e -> e.getCompany().getCompanyId()==companyId)
+						.filter(s -> s.getFarmer().getFarmerId()==farmerId).collect(Collectors.toList());
+				return list;
+			} else {
+				LOG.info("FarmerId not Valid");
+				throw new FarmerNotFoundException("FarmerId not found");
+			}
+		} else {
+			LOG.info("CompanyId not Valid");
+			throw new CompanyNotFoundException("CompanyId not found");
+		}
+	}
+
+
+	
 
 }

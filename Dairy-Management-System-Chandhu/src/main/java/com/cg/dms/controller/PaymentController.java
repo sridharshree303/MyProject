@@ -1,5 +1,7 @@
 package com.cg.dms.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -9,6 +11,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +23,8 @@ import com.cg.dms.entities.CompanySellsMilk;
 import com.cg.dms.entities.DealerSellsMilk;
 import com.cg.dms.entities.Farmer;
 import com.cg.dms.entities.Payment;
+import com.cg.dms.exception.CompanyNotFoundException;
+import com.cg.dms.exception.FarmerNotFoundException;
 import com.cg.dms.exception.InvalidTransactionException;
 import com.cg.dms.service.CompanyBuysMilkService;
 import com.cg.dms.service.PaymentService;
@@ -70,17 +75,22 @@ public class PaymentController {
 		ResponseEntity<Payment> response = new ResponseEntity<Payment>(pay, headers, HttpStatus.OK);
 		return response;
 	}
-	
-	@GetMapping("/list/company/orders")
-	public ResponseEntity<CompanyBuysMilk> getAllCompanyBuyOrders(){
-		LOG.info("getAllCompanyBuyOrders");
-		CompanyBuysMilk cbm = new CompanyBuysMilk();
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("message", "List of All Transactions");
-		LOG.info(headers.toString());
-		return new ResponseEntity<CompanyBuysMilk>(cbm,headers,HttpStatus.OK);
+
+	@GetMapping("/company/buydata/{companyId}/{farmerId}")
+	public List<CompanyBuysMilk> getAllCompanyBuyData(@Valid @PathVariable(name = "companyId") int companyId,@PathVariable(name = "farmerId") int farmerId) throws InvalidTransactionException, FarmerNotFoundException, CompanyNotFoundException {
+		LOG.info("getAllCompanyBuyData");
+		List<CompanyBuysMilk> lst = paymentservice.findByCompanyIdAndFarmerId(companyId, farmerId);
+		return lst;
 	}
 
+	
+	
+	
+	
+
+	
+	
+	
 //	@PostMapping("/payment/insert/dealer")
 //	public ResponseEntity<Payment> insertDealerToCompanyPayment(@Valid @RequestBody DealerSellsMilk payment){
 //		LOG.info("insert Dealer to company");
@@ -109,6 +119,16 @@ public class PaymentController {
 //		headers.add("message", "New Customer Payment is added");
 //		ResponseEntity<Payment> response = new ResponseEntity<Payment>(pay,headers,HttpStatus.OK);
 //		return response;
+//	}
+
+//	@GetMapping("/list/company/orders")
+//	public ResponseEntity<CompanyBuysMilk> getAllCompanyBuyOrders(){
+//		LOG.info("getAllCompanyBuyOrders");
+//		CompanyBuysMilk cbm = new CompanyBuysMilk();
+//		HttpHeaders headers = new HttpHeaders();
+//		headers.add("message", "List of All Transactions");
+//		LOG.info(headers.toString());
+//		return new ResponseEntity<CompanyBuysMilk>(cbm,headers,HttpStatus.OK);
 //	}
 //	
 
