@@ -3,6 +3,7 @@ package com.cg.dms.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -105,6 +106,13 @@ public class PaymentService {
 				List<CompanyBuysMilk> list = lst.stream().filter(e -> e.getCompany().getCompanyId()==companyId)
 						.filter(s -> s.getFarmer().getFarmerId()==farmerId).collect(Collectors.toList());
 				return list;
+				
+//				Predicate<CompanyBuysMilk> itemPredicate = d-> companyId==(d.getCompany().getCompanyId());
+//				Predicate<CompanyBuysMilk> namePredicate = d-> farmerId==(d.getFarmer().getFarmerId());
+//				return lst.stream()
+//				    .filter(itemPredicate.and(namePredicate))
+//				    .collect(Collectors.toList());
+				
 			} else {
 				LOG.info("FarmerId not Valid");
 				throw new FarmerNotFoundException("FarmerId not found");

@@ -76,7 +76,7 @@ public class PaymentController {
 		return response;
 	}
 
-	@GetMapping("/company/buydata/{companyId}/{farmerId}")
+	@GetMapping("/company/buydata/{companyId}&{farmerId}")
 	public List<CompanyBuysMilk> getAllCompanyBuyData(@Valid @PathVariable(name = "companyId") int companyId,@PathVariable(name = "farmerId") int farmerId) throws InvalidTransactionException, FarmerNotFoundException, CompanyNotFoundException {
 		LOG.info("getAllCompanyBuyData");
 		List<CompanyBuysMilk> lst = paymentservice.findByCompanyIdAndFarmerId(companyId, farmerId);
