@@ -1,5 +1,6 @@
 package com.cg.dms.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -10,20 +11,17 @@ import org.springframework.stereotype.Service;
 import com.cg.dms.entities.Dealer;
 import com.cg.dms.exception.DealAlreadyExistsException;
 import com.cg.dms.exception.DealerNotFoundException;
-import com.cg.dms.repository.ICompanyRepository;
-import com.cg.dms.repository.IDelearRepository;
+import com.cg.dms.repository.IDealerRepository;
 
 @Service
-public class DelearService implements IDelearService {
+public class DealerService implements IDealerService {
 
-	private static final Logger LOG = LoggerFactory.getLogger(DelearService.class);
+	private static final Logger LOG = LoggerFactory.getLogger(DealerService.class);
 
 	@Autowired
-	private IDelearRepository iDealerRepository;
-	@Autowired
-	private ICompanyRepository iCompanyRepository;
+	private IDealerRepository iDealerRepository;
+	
 
-	// public Dealer insertDealer(Dealer dealer);
 	public Dealer insertDealer(Dealer dealer) throws DealAlreadyExistsException {
 
 		LOG.info("Service addDealer");
@@ -36,8 +34,6 @@ public class DelearService implements IDelearService {
 		}
 	}
 
-
-	//public List<Dealer> getDealer(int dealerId);
 	public Dealer getDealer(int dealerId) throws DealerNotFoundException {
 		LOG.info("getDealerId");
 		Optional<Dealer> dealerOpt = iDealerRepository.findById(dealerId);
@@ -50,7 +46,6 @@ public class DelearService implements IDelearService {
 		}
 	}
 
-	// public Dealer updateDealer(Dealer dealer) throws DealerNotFoundException;
 	public Dealer updateDealer(Dealer dealer) throws DealerNotFoundException {
 		LOG.info("Service updateDealer");
 		if (iDealerRepository.existsById(dealer.getDealerId())) {
@@ -62,7 +57,6 @@ public class DelearService implements IDelearService {
 		}
 	}
 
-	//public Dealer deleteDealer(Dealer dealer) throws DealerNotFoundException;
 	public Dealer deleteDealer(int dealerId) throws DealerNotFoundException {
 		LOG.info("Service deleteDealerById");
 		Optional<Dealer> dealOpt = iDealerRepository.findById(dealerId);
@@ -75,10 +69,10 @@ public class DelearService implements IDelearService {
 			throw new DealerNotFoundException(dealerId + " this dealer is not found.");
 		}
 	}
-
-
+	
+	public List<Dealer> getAllDealers() {
+		LOG.info("get all Dealers");
+		return iDealerRepository.findAll();
+	}
 
 }
-
-
-

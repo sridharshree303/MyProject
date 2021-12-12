@@ -23,7 +23,7 @@ import com.cg.dms.repository.ICompanyRepository;
 import com.cg.dms.repository.ICompanySellsMilkRepository;
 import com.cg.dms.repository.ICustomerRepository;
 import com.cg.dms.repository.IDealerSellsMilkRepository;
-import com.cg.dms.repository.IDelearRepository;
+import com.cg.dms.repository.IDealerRepository;
 import com.cg.dms.repository.IFarmerRepository;
 import com.cg.dms.repository.IPaymentRepository;
 
@@ -36,7 +36,7 @@ public class PaymentService {
 	@Autowired
 	private IFarmerRepository iFarmerRepository;
 	@Autowired
-	private IDelearRepository iDealerRepository;
+	private IDealerRepository iDealerRepository;
 	@Autowired
 	private ICompanyRepository iCompanyRepository;
 	@Autowired

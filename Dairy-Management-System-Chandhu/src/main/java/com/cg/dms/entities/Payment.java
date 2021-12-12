@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @MappedSuperclass
@@ -31,7 +30,6 @@ public class Payment implements Serializable {
 	@NotNull(message = "Bill number shouble be manadatory*")
 	private float bill;
 
-	
 	private int milkUnits;
 
 	private double unitPrice;

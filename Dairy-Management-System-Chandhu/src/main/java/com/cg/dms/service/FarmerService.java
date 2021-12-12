@@ -8,8 +8,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cg.dms.entities.Dealer;
 import com.cg.dms.entities.Farmer;
 import com.cg.dms.exception.CustomerNotFoundException;
+import com.cg.dms.exception.DealerNotFoundException;
 import com.cg.dms.exception.FarmerAlreadyExistsException;
 import com.cg.dms.exception.FarmerNotFoundException;
 import com.cg.dms.repository.IFarmerRepository;
@@ -60,6 +62,20 @@ public class FarmerService implements IfarmerService {
 			LOG.info("Farmer is Not Found");
 			throw new FarmerNotFoundException(farmerId+" --> farmerId is not Found ");
 		}
+	}
+	
+	public Farmer deleteFarmer(int farmerId) throws FarmerNotFoundException {
+		LOG.info("Delete farmerId service");
+		Optional<Farmer> farm = iFarmerRepository.findById(farmerId);
+		if(farm.isPresent()) {
+			LOG.info("Farmer is Available to delete");
+			iFarmerRepository.deleteById(farmerId);
+			return farm.get();
+		}else {
+			LOG.info("farmerId is not available");
+			throw new FarmerNotFoundException(farmerId+" is not found in database");
+		}
+		
 	}
 
 
