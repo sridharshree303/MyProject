@@ -3,11 +3,9 @@ package com.cg.dms.entities;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 @Entity
-@Table(name="delearpayment_table")
-public class DealerPayment extends Payment {
+public class CompanySellsMilk extends Payment {
 
 	/**
 	 * 
@@ -16,7 +14,7 @@ public class DealerPayment extends Payment {
 	
 
 	@ManyToOne
-	@JoinColumn(name = "id")
+	@JoinColumn(name = "companyId")
 	private Company company;
 	
 	@ManyToOne

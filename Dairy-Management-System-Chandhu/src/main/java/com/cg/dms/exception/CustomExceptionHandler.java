@@ -34,7 +34,7 @@ class CustomExceptionHandler {
 		LOG.error("handleCustomerAlreadyExistsException");
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("message", "Customer data already exists in database");
-		return new ResponseEntity<Object>(null, headers, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<Object>(null, headers, HttpStatus.BAD_REQUEST);
 	}
 
 	@ExceptionHandler(CompanyNotFoundException.class)
@@ -101,7 +101,7 @@ class CustomExceptionHandler {
 		LOG.error("FarmerAlreadyExistsException");
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("message", "This Farmer is already exists in the database.");
-		return new ResponseEntity<Object>(null, headers, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<Object>(null, headers, HttpStatus.BAD_REQUEST);
 	}
 
 	@ExceptionHandler(FarmerNotFoundException.class)
@@ -124,8 +124,24 @@ class CustomExceptionHandler {
 	public ResponseEntity<Object> handleAppUserAlreadyExistsException() {
 		LOG.error("handleAppUserAlreadyExistsException");
 		HttpHeaders headers = new HttpHeaders();
-		headers.add("", null);
-		return null;
+		headers.add("message", "This user Already existed");
+		return new ResponseEntity<Object>(null,headers,HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(BillNotFoundException.class)
+	public ResponseEntity<Object> handleBillNotFoundException(){
+		LOG.error("handleBillNotFoundException");
+		HttpHeaders headers=new HttpHeaders();
+		headers.add("message", "Bill data not Found");
+		return new ResponseEntity<Object>(null,headers,HttpStatus.NOT_FOUND);
+		
+	}
+	@ExceptionHandler(InvalidTransactionException.class)
+	public ResponseEntity<Object> handleInvalidTransactionException(){
+		LOG.error("handleInvalidTransactionException");
+		HttpHeaders headers=new HttpHeaders();
+		headers.add("message","Invalid Transaction Details Provided");
+		return new ResponseEntity<Object>(null,headers,HttpStatus.BAD_REQUEST);
 	}
 
 }

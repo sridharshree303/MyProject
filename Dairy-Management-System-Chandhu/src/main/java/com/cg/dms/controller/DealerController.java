@@ -80,7 +80,7 @@ public class DealerController {
 		return response;
 	}
 
-	@GetMapping("/company/?")
+	@GetMapping("/company")
 	public List<Company> getAllCompany() {
 		LOG.info("getAllCompany");
 		List<Company> list = iCompanyService.getAllCompany();

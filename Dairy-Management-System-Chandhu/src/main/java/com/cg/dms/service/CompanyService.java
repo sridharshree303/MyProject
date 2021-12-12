@@ -3,6 +3,7 @@ package com.cg.dms.service;
 import com.cg.dms.entities.Company;
 import com.cg.dms.entities.Dealer;
 import com.cg.dms.entities.Farmer;
+import com.cg.dms.exception.CompanyAlreadyExistsException;
 import com.cg.dms.exception.CompanyNotFoundException;
 import com.cg.dms.exception.CustomerAlreadyExistsException;
 import com.cg.dms.repository.ICompanyRepository;
@@ -30,11 +31,13 @@ public class CompanyService implements ICompanyService {
 	private IDelearRepository iDealerRepository;
 
 	// public Company insertCompany(Company company);
-	public Company insertCompany(Company company) throws CustomerAlreadyExistsException {  
+	public Company insertCompany(Company company) throws CompanyAlreadyExistsException {  
 		LOG.info("Service addCompany");
-		if (iCompanyRepository.existsById(company.getId())) {    // if true 
+		boolean bbn = iCompanyRepository.existsById(company.getCompanyId());
+		LOG.info("boolean"+bbn);
+		if (iCompanyRepository.existsById(company.getCompanyId())) {    // if true 
 			LOG.info("Company Data is already exists");
-			throw new CustomerAlreadyExistsException(company.getId() + "Company already exists");
+			throw new CompanyAlreadyExistsException(company.getCompanyId() + "Company already exists");
 		} else {                                 // if false
 			LOG.info("New Company is Added");
 			return iCompanyRepository.save(company);
@@ -59,7 +62,7 @@ public class CompanyService implements ICompanyService {
 	// CompanyNotFoundException;
 	public Company updateCompany(Company company) throws CompanyNotFoundException {
 		LOG.info("Service companyDealer");
-		if (iCompanyRepository.existsById(company.getId())) {
+		if (iCompanyRepository.existsById(company.getCompanyId())) {
 			LOG.info("Company Data is Updated");
 			return iCompanyRepository.save(company);
 		} else {

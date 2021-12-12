@@ -5,18 +5,18 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class CustomerPayment extends Payment{
+public class DealerSellsMilk extends Payment {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 7267766373145125579L;
 	@ManyToOne
-	@JoinColumn(name="dealerId")
+	@JoinColumn(name = "dealerId")
 	private Dealer dealer;
-	
+
 	@ManyToOne
-	@JoinColumn(name="customerId")
+	@JoinColumn(name = "customerId")
 	private Customer customer;
 
 	public Dealer getDealer() {
@@ -34,6 +34,5 @@ public class CustomerPayment extends Payment{
 	public void setDealer(Dealer dealer) {
 		this.dealer = dealer;
 	}
-	
-	
+
 }

@@ -1,34 +1,37 @@
 package com.cg.dms.entities;
 
-import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
 
 @MappedSuperclass
 public abstract class AbstractUser {
 	
-	@NotNull
+	@NotEmpty(message ="Please input your username")
 	private String userName;
-	@NotNull
+	
+	@NotEmpty(message="please input your first name")
 	private String firstName;
-	@NotNull
+	
+	@NotEmpty(message="please input your last name")
 	private String lastName;
-	@NotNull
+	
+	@NotEmpty(message="please enter your password")
 	@Size(min = 4, max = 10)
 	private String password;
-	@Column(length = 10)
+	
+
+	@Pattern(regexp="^\\d{10}$", message="Enter Valid Mobile Number")
 	private String mobileNumber;
-	@Email
-	@NotBlank
+	
+
+	@Pattern(regexp="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$",message="Enter Valid Mail Id")
 	private String email;
-	@NotNull
-	private int milkunits;
-	@NotEmpty
-	private double unitprice;
+	
+	
+
 
 	public String getUsername() {
 		return userName;
@@ -77,20 +80,6 @@ public abstract class AbstractUser {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
 
-	public int getMilkunits() {
-		return milkunits;
-	}
-
-	public void setMilkunits(int milkunits) {
-		this.milkunits = milkunits;
-	}
-
-	public double getUnitprice() {
-		return unitprice;
-	}
-
-	public void setUnitprice(double unitprice) {
-		this.unitprice = unitprice;
-	}
 }
