@@ -1,7 +1,5 @@
 package com.cg.dms.service;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,6 +12,7 @@ import com.cg.dms.entities.CompanyBuysMilk;
 import com.cg.dms.entities.CompanySellsMilk;
 import com.cg.dms.entities.DealerSellsMilk;
 import com.cg.dms.entities.Farmer;
+import com.cg.dms.entities.PayToFarmer;
 import com.cg.dms.entities.Payment;
 import com.cg.dms.exception.FarmerNotFoundException;
 import com.cg.dms.exception.InvalidTransactionException;
@@ -22,17 +21,16 @@ import com.cg.dms.repository.ICompanyBuysMilkRepository;
 import com.cg.dms.repository.ICompanyRepository;
 import com.cg.dms.repository.ICompanySellsMilkRepository;
 import com.cg.dms.repository.ICustomerRepository;
-import com.cg.dms.repository.IDealerSellsMilkRepository;
 import com.cg.dms.repository.IDealerRepository;
+import com.cg.dms.repository.IDealerSellsMilkRepository;
 import com.cg.dms.repository.IFarmerRepository;
-import com.cg.dms.repository.IPaymentRepository;
+import com.cg.dms.repository.IPayToFarmerRepository;
 
 @Service
 public class PaymentService {
 
 	private static final Logger LOG = LoggerFactory.getLogger(PaymentService.class);
-	@Autowired
-	private IPaymentRepository ipaymentrepository;
+
 	@Autowired
 	private IFarmerRepository iFarmerRepository;
 	@Autowired
@@ -47,8 +45,10 @@ public class PaymentService {
 	private ICompanyBuysMilkRepository icompanybuysmilkrepository;
 	@Autowired
 	private ICompanySellsMilkRepository icompanysellsmilkrepository;
+	@Autowired
+	private IPayToFarmerRepository ipaytofarmerrepository;
 
-	public Payment companyBuysMilkData(CompanyBuysMilk transaction) 
+	public Payment companyBuysMilkData(CompanyBuysMilk transaction)
 			throws InvalidTransactionException, PaymentAlreadyFoundException {
 
 		boolean cmp = iCompanyRepository.existsById(transaction.getCompany().getCompanyId());
@@ -61,7 +61,7 @@ public class PaymentService {
 			throw new InvalidTransactionException(transaction.getPaymentId() + " Invalid Buy Order ");
 		}
 	}
-	
+
 	public Payment companySellsMilkData(CompanySellsMilk transaction)
 			throws InvalidTransactionException, PaymentAlreadyFoundException {
 
@@ -75,7 +75,6 @@ public class PaymentService {
 			throw new InvalidTransactionException(transaction.getPaymentId() + " Invalid Sell Order ");
 		}
 	}
-
 
 	public Payment dealerSellsMilkData(DealerSellsMilk transaction)
 			throws InvalidTransactionException, PaymentAlreadyFoundException {
@@ -91,39 +90,42 @@ public class PaymentService {
 		}
 	}
 
-	public List<CompanyBuysMilk> getAllCompanyBuyOrders(){
+	public List<CompanyBuysMilk> getAllCompanyBuyOrders() {
 		LOG.info("get All Company Buy Orders");
 		return icompanybuysmilkrepository.findAll();
 	}
-	
-	public List<CompanySellsMilk> getAllCompanySellOrders(){
+
+	public List<CompanySellsMilk> getAllCompanySellOrders() {
 		LOG.info("get All Company Sell Orders");
 		return icompanysellsmilkrepository.findAll();
 	}
-	
-	public List<DealerSellsMilk> getAllDealerSellOrders(){
+
+	public List<DealerSellsMilk> getAllDealerSellOrders() {
 		LOG.info("get All Dealer sell Orders");
 		return idealersellsmilkrepository.findAll();
 	}
-	
-	public List<CompanyBuysMilk> getListByFarmerId(int farmerId) throws FarmerNotFoundException{
+
+//----------------------------------------------------------------------------------------	
+
+	public List<CompanyBuysMilk> getListByFarmerId(int farmerId) throws FarmerNotFoundException {
 		LOG.info("get All Farmer Details");
-		Optional<Farmer> farm = iFarmerRepository.findById(farmerId);
+//		Optional<Farmer> farm = iFarmerRepository.findById(farmerId);
 		boolean farmer = iFarmerRepository.existsById(farmerId);
-		
-		LOG.info(""+farmer);
-		if(farmer) {
+
+		LOG.info("" + farmer);
+		if (farmer) {
 			LOG.info("Farmer Id found ");
-		return icompanybuysmilkrepository.getListByFarmerId(farmerId);
-		}else {
+			return icompanybuysmilkrepository.getListByFarmerId(farmerId);
+		} else {
 			LOG.info("farmer ID not found");
 			throw new FarmerNotFoundException("farmerId not found");
 		}
 	}
+
+//------------------------------------------------------------------------------------------
 	
 
 }
-
 
 //public List<CompanyBuysMilk> findByCompanyIdAndFarmerId(int companyId , int farmerId)
 //throws FarmerNotFoundException, CompanyNotFoundException {
