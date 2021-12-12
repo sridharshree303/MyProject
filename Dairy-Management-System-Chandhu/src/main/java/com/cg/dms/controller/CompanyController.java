@@ -1,5 +1,7 @@
 package com.cg.dms.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.dms.entities.Company;
+import com.cg.dms.entities.Dealer;
 import com.cg.dms.exception.CompanyNotFoundException;
 import com.cg.dms.service.CompanyService;
 
@@ -30,7 +33,7 @@ public class CompanyController {
 	@Autowired
 	private CompanyService iCompanyService;
 
-	@PostMapping("/")
+	@PostMapping("/add")
 	public ResponseEntity<Company> addcompany(@Valid @RequestBody Company company) throws CompanyNotFoundException {
 		LOG.info("Controller addCompany");
 		Company comp = iCompanyService.insertCompany(company);
@@ -40,13 +43,13 @@ public class CompanyController {
 		return response;
 	}
 
-	@DeleteMapping("/{companyid}")
+	@DeleteMapping("/delete/{companyid}")
 	public ResponseEntity<Company> deletecompanyById(@Valid @PathVariable(name = "companyid") int companyid)
 			throws CompanyNotFoundException {
 		LOG.info("deletecompanybyid");
 		Company company = iCompanyService.deleteCompany(companyid);
 		HttpHeaders headers = new HttpHeaders();
-		headers.add("message", "This company is deleted from the Database");
+		headers.add("message", " company is deleted from the Database");
 		ResponseEntity<Company> response = new ResponseEntity<Company>(company, headers, HttpStatus.OK);
 		return response;
 	}
@@ -56,7 +59,7 @@ public class CompanyController {
 		LOG.info("Controller company");
 		Company comp = iCompanyService.updateCompany(company);
 		HttpHeaders headers = new HttpHeaders();
-		headers.add("message", "This company data is updated in database.");
+		headers.add("message", " company data is updated in database.");
 		ResponseEntity<Company> response = new ResponseEntity<Company>(comp, headers, HttpStatus.OK);
 		return response;
 	}
@@ -67,10 +70,33 @@ public class CompanyController {
 		LOG.info("getcompanyById");
 		Company company = iCompanyService.getCompanyById(companyId);
 		HttpHeaders headers = new HttpHeaders();
-		headers.add("message", "This company is available in the database.");
+		headers.add("message", "company is available in the database.");
 		LOG.info(headers.toString());
 		ResponseEntity<Company> response = new ResponseEntity<Company>(company, headers, HttpStatus.OK);
 		return response;
 	}
 	
+	@GetMapping("/all")
+	public ResponseEntity<List<Company>> getAllCompany(){
+		LOG.info("get all Companies");
+		List<Company> list = iCompanyService.getAllCompany();
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("message"," Company Details are resulted");
+		ResponseEntity<List<Company>> response = new ResponseEntity<List<Company>>(list,headers,HttpStatus.OK);
+		return response;
+	}
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+

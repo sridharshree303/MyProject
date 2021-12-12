@@ -3,7 +3,7 @@ package com.cg.dms.service;
 import com.cg.dms.entities.Dealer;
 import com.cg.dms.exception.DealerNotFoundException;
 
-public interface IDelearService {
+public interface IDealerService {
 
 	public Dealer insertDealer(Dealer dealer);
 

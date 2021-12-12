@@ -7,7 +7,7 @@ import com.cg.dms.exception.CompanyAlreadyExistsException;
 import com.cg.dms.exception.CompanyNotFoundException;
 import com.cg.dms.exception.CustomerAlreadyExistsException;
 import com.cg.dms.repository.ICompanyRepository;
-import com.cg.dms.repository.IDelearRepository;
+import com.cg.dms.repository.IDealerRepository;
 import com.cg.dms.repository.IFarmerRepository;
 
 import org.slf4j.Logger;
@@ -28,7 +28,7 @@ public class CompanyService implements ICompanyService {
 	@Autowired
 	private IFarmerRepository iFarmerRepository;
 	@Autowired
-	private IDelearRepository iDealerRepository;
+	private IDealerRepository iDealerRepository;
 
 	// public Company insertCompany(Company company);
 	public Company insertCompany(Company company) throws CompanyAlreadyExistsException {  
@@ -87,19 +87,6 @@ public class CompanyService implements ICompanyService {
 		LOG.info("Service getAllCompany");
 		return iCompanyRepository.findAll();
 	}
-
-	public List<Farmer> getAllFormers() {
-		LOG.info("get all Farmers");
-		return iFarmerRepository.findAll();
-	}
-
-	public List<Dealer> getAllDealers() {
-		LOG.info("get all Dealers");
-		return iDealerRepository.findAll();
-	}
-
-	
-	
 
 }
 

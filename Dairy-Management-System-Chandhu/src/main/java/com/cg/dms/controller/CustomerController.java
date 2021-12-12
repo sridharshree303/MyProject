@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.dms.entities.Customer;
@@ -23,6 +24,7 @@ import com.cg.dms.exception.CustomerNotFoundException;
 import com.cg.dms.service.CustomerService;
 
 @RestController
+@RequestMapping("/customer")
 public class CustomerController {
 	
 	private static final Logger LOG = LoggerFactory.getLogger(CustomerController.class);
@@ -31,7 +33,7 @@ public class CustomerController {
 	private CustomerService customerservice;
 	
 	
-	@GetMapping("/customer/all")
+	@GetMapping("/all")
 	public List<Customer> viewCustomers() throws CustomerNotFoundException{
 		LOG.info("VIEW_ALL_CUSTOMERS_CONTROLLER");
 		List<Customer> list = customerservice.viewCustomers();
@@ -39,7 +41,7 @@ public class CustomerController {
 	}
 	
 	
-	@PostMapping("/customer")
+	@PostMapping("/add")
 	public ResponseEntity<Customer> insertCustomer(@Valid @RequestBody Customer customer) throws CustomerNotFoundException {
 		LOG.info("INSERT_CUSTOMER_CONTROLLER");
 		Customer custom = customerservice.insertCustomer(customer);
@@ -50,7 +52,7 @@ public class CustomerController {
 	}
 	
 
-	@PutMapping("/customer")
+	@PutMapping("/update")
 	public ResponseEntity<Customer> updateCustomer(@Valid @RequestBody Customer customer) throws CustomerNotFoundException {
 		LOG.info("UPDATE_CUSTOMER_CONTROLLER");
 		Customer custom = customerservice.updateCustomer(customer);
@@ -61,7 +63,7 @@ public class CustomerController {
 	}
 	
 	
-	@DeleteMapping("/customer/{customerId}")
+	@DeleteMapping("/delete/{customerId}")
 	public ResponseEntity<Customer> deleteCustomerById(@Valid @PathVariable int customerId) throws CustomerNotFoundException {
 		LOG.info("DELETE_CUSTOMER_BY_ID_CONTROLLER");
 		Customer custom = customerservice.deleteCustomer(customerId);
@@ -72,7 +74,7 @@ public class CustomerController {
 	}
 	
 	
-	@GetMapping("/customer/_/{customerId}")
+	@GetMapping("/view/{customerId}")
 	public ResponseEntity<Customer> viewCustomerById(@Valid @PathVariable(name="customerId") int customerId) throws CustomerNotFoundException {
 		LOG.info("VIEW_CUSTOMER_BY_ID");
 		Customer custom = customerservice.viewCustomer(customerId);

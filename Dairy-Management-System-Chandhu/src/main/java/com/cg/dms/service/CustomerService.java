@@ -21,13 +21,11 @@ public class CustomerService implements ICustomerService{
 	@Autowired
 	private ICustomerRepository icustomerRepository;
 
-//	public List<Customer>viewCustomers() throws CustomerNotFoundException;
 	public List<Customer>viewCustomers() throws CustomerNotFoundException{
 		LOG.info("Get All Customer Services");
 		return icustomerRepository.findAll();
 	}
 
-//	public Customer insertCustomer(Customer customer);
 	public Customer insertCustomer(Customer customer) throws CustomerAlreadyExistsException {
 		LOG.info("add New Customer Service");
 		Optional<Customer> custom = icustomerRepository.findById(customer.getCustomerId());
@@ -38,8 +36,6 @@ public class CustomerService implements ICustomerService{
 			return icustomerRepository.save(customer);		
 	}
 
-	// public Customer updateCustomer(Customer customer) throws
-	// CustomerNotFoundException;
 	public Customer updateCustomer(Customer customer) throws CustomerNotFoundException {
 		LOG.info("Update customer Service");
 		if (icustomerRepository.existsById(customer.getCustomerId())) {
@@ -51,8 +47,6 @@ public class CustomerService implements ICustomerService{
 		}
 	}
 
-	// public Customer deleteCustomer(Customer customer) throws
-	// CustomerNotFoundException;
 	public Customer deleteCustomer(int customerId) throws CustomerNotFoundException {
 		LOG.info("Delete Customer By CustomerId");
 		Optional<Customer> customId = icustomerRepository.findById(customerId);
@@ -66,8 +60,6 @@ public class CustomerService implements ICustomerService{
 		}
 	}
 
-	// public Customer viewCustomer(int customerId) throws
-	// CustomerNotFoundException;
 	public Customer viewCustomer(int customerId) throws CustomerNotFoundException {
 		LOG.info("View customer by customerId");
 		Optional<Customer> customId = icustomerRepository.findById(customerId);
