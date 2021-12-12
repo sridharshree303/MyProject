@@ -8,9 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 @MappedSuperclass
 public class Payment implements Serializable {
@@ -26,15 +25,18 @@ public class Payment implements Serializable {
 
 	@Column
 	private LocalDateTime dateTime;
+	
+//	private LocalDate date;
 
 	@NotNull(message = "Bill number shouble be manadatory*")
 	private float bill;
 
-	@NotNull
+	
 	private int milkUnits;
 
 	private double unitPrice;
 
+	//Getters and Setters
 	public int getPaymentId() {
 		return paymentId;
 	}

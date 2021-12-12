@@ -7,6 +7,7 @@ import javax.persistence.Id;
 
 @Entity
 public class Dealer extends AbstractUser {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int dealerId;

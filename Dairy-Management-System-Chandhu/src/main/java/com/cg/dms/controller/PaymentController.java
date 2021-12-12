@@ -1,5 +1,6 @@
 package com.cg.dms.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -76,60 +77,44 @@ public class PaymentController {
 		return response;
 	}
 
-	@GetMapping("/company/buydata/{companyId}&{farmerId}")
-	public List<CompanyBuysMilk> getAllCompanyBuyData(@Valid @PathVariable(name = "companyId") int companyId,@PathVariable(name = "farmerId") int farmerId) throws InvalidTransactionException, FarmerNotFoundException, CompanyNotFoundException {
-		LOG.info("getAllCompanyBuyData");
-		List<CompanyBuysMilk> lst = paymentservice.findByCompanyIdAndFarmerId(companyId, farmerId);
-		return lst;
+	@GetMapping("/getallcompanybuys")
+	public ResponseEntity<List<CompanyBuysMilk>> getAllCompanyBuyOrders(){
+		LOG.info("getAllCompanyBuyOrders controller");
+		List<CompanyBuysMilk> lst = paymentservice.getAllCompanyBuyOrders();
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("message","List of All Company Buy Orders");
+		ResponseEntity<List<CompanyBuysMilk>> response = new ResponseEntity<List<CompanyBuysMilk>>(lst,headers,HttpStatus.OK);
+		return response;
 	}
-
 	
+	@GetMapping("/getallcompanysells")
+	public ResponseEntity<List<CompanySellsMilk>> getAllCompanySellOrders(){
+		LOG.info("getAllCompanySellOrders controller");
+		List<CompanySellsMilk> lst = paymentservice.getAllCompanySellOrders();
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("message","List of All Company Sell Orders");
+		ResponseEntity<List<CompanySellsMilk>> response = new ResponseEntity<List<CompanySellsMilk>>(lst,headers,HttpStatus.OK);
+		return response;
+	}
 	
+	@GetMapping("/getalldealerSells")
+	public ResponseEntity<List<DealerSellsMilk>> getAllDealerSellOrders(){
+		LOG.info("getAllDealerSellOrders controller");
+		List<DealerSellsMilk> lst = paymentservice.getAllDealerSellOrders();
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("message","List of All Dealer Sell Orders");
+		ResponseEntity<List<DealerSellsMilk>> response = new ResponseEntity<List<DealerSellsMilk>>(lst,headers,HttpStatus.OK);
+		return response;
+	}
 	
-	
-
-	
-	
-	
-//	@PostMapping("/payment/insert/dealer")
-//	public ResponseEntity<Payment> insertDealerToCompanyPayment(@Valid @RequestBody DealerSellsMilk payment){
-//		LOG.info("insert Dealer to company");
-//		Payment pay = paymentservice.insertDealerToComapnyPayment(payment);
-//		HttpHeaders headers = new HttpHeaders();
-//		headers.add("message", "New dealer Payment is added");
-//		ResponseEntity<Payment> response = new ResponseEntity<Payment>(pay,headers,HttpStatus.OK);
-//		return response;
-//	}
-//	
-//	@PostMapping("/payment/insert/company")
-//	public ResponseEntity<Payment> insertCompanyToFarmerPayment(@Valid @RequestBody CompanyBuysMilk payment){
-//		LOG.info("insert company to farmer");
-//		Payment pay = paymentservice.insertCompanyToFarmerPayment(payment);
-//		HttpHeaders headers = new HttpHeaders();
-//		headers.add("message", "New Farmer payment is added");
-//		ResponseEntity<Payment> response = new ResponseEntity<Payment>(pay,headers,HttpStatus.OK);
-//		return response;
-//	}
-//	
-//	@PostMapping("/payment/insert/customer")
-//	public ResponseEntity<Payment> insertCustomerToDealer(@Valid @RequestBody CompanySellsMilk payment){
-//		LOG.info("insert customer to Dealer");
-//		Payment pay = paymentservice.insertCustomerToDelearPayment(payment);
-//		HttpHeaders headers = new HttpHeaders();
-//		headers.add("message", "New Customer Payment is added");
-//		ResponseEntity<Payment> response = new ResponseEntity<Payment>(pay,headers,HttpStatus.OK);
-//		return response;
-//	}
-
-//	@GetMapping("/list/company/orders")
-//	public ResponseEntity<CompanyBuysMilk> getAllCompanyBuyOrders(){
-//		LOG.info("getAllCompanyBuyOrders");
-//		CompanyBuysMilk cbm = new CompanyBuysMilk();
-//		HttpHeaders headers = new HttpHeaders();
-//		headers.add("message", "List of All Transactions");
-//		LOG.info(headers.toString());
-//		return new ResponseEntity<CompanyBuysMilk>(cbm,headers,HttpStatus.OK);
-//	}
-//	
+	@GetMapping("/getListByFarmerId/{farmerId}")
+	public ResponseEntity<List<CompanyBuysMilk>> getListByFarmerId(@PathVariable(name="farmerId")int farmerId) throws FarmerNotFoundException{
+		LOG.info("getListByFarmerId controller");
+		List<CompanyBuysMilk> list = paymentservice.getListByFarmerId(farmerId);
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("message","List of All Farmer Details");
+		ResponseEntity<List<CompanyBuysMilk>> response = new ResponseEntity<List<CompanyBuysMilk>>(list,headers,HttpStatus.OK);
+		return response;
+	}
 
 }

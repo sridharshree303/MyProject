@@ -1,6 +1,9 @@
 package com.cg.dms.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Company {
@@ -9,23 +12,30 @@ public class Company {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int companyId;
 
+	@NotEmpty(message = "Enter your company name")
 	private String companyName;
 
+	@Pattern(regexp = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$", message = "Enter Valid Mail Id")
 	private String email;
 
+	@Size(min = 4, max = 16, message = "Enter valid password")
 	private String password;
 
+	@Pattern(regexp = "^\\d{10}$", message = "Enter Valid Mobile Number")
 	private String mobileNumber;
 
+	@NotEmpty(message = "please enter your address")
 	private String address;
 
 	public Company() {
 		super();
-		
 	}
 
-	public Company(int companyId, String companyName, String email, String password, String mobileNumber,
-			String address) {
+	public Company(int companyId, @NotEmpty(message = "Enter your company name") String companyName,
+			@Pattern(regexp = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$", message = "Enter Valid Mail Id") String email,
+			@Size(min = 4, max = 16, message = "Enter valid password") String password,
+			@Pattern(regexp = "^\\d{10}$", message = "Enter Valid Mobile Number") String mobileNumber,
+			@NotEmpty(message = "please enter your address") String address) {
 		super();
 		this.companyId = companyId;
 		this.companyName = companyName;
@@ -88,6 +98,5 @@ public class Company {
 		return "Company [companyId=" + companyId + ", companyName=" + companyName + ", email=" + email + ", password="
 				+ password + ", mobileNumber=" + mobileNumber + ", address=" + address + "]";
 	}
-	
 
 }

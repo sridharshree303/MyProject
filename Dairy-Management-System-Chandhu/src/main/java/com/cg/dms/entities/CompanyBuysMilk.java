@@ -6,7 +6,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Company_Buy_Milk_table")
+@Table
 public class CompanyBuysMilk extends Payment{
 	
 	/**

@@ -3,10 +3,8 @@ package com.cg.dms.entities;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 @Entity
-@Table(name="Company_Sell_Milk_table")
 public class CompanySellsMilk extends Payment {
 
 	/**
