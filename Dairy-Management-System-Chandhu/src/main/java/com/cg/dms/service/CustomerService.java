@@ -9,13 +9,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cg.dms.entities.Customer;
+import com.cg.dms.entities.Farmer;
 import com.cg.dms.exception.CustomerAlreadyExistsException;
 import com.cg.dms.exception.CustomerNotFoundException;
+import com.cg.dms.exception.FarmerNotFoundException;
 import com.cg.dms.repository.ICustomerRepository;
 
 @Service
 public class CustomerService implements ICustomerService{
 
+	private Customer tempCustomer;
+	
+	public boolean isLoggedIn;
+	
 	private static final Logger LOG = LoggerFactory.getLogger(CustomerService.class);
 
 	@Autowired
@@ -70,7 +76,7 @@ public class CustomerService implements ICustomerService{
 			LOG.info("Customer Data not Found");
 			throw new CustomerNotFoundException(customerId + " --> customer Id not found ");
 		}
-
 	}
+
 
 }

@@ -1,7 +1,6 @@
 package com.cg.dms.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,8 +10,6 @@ import org.springframework.stereotype.Service;
 import com.cg.dms.entities.CompanyBuysMilk;
 import com.cg.dms.entities.CompanySellsMilk;
 import com.cg.dms.entities.DealerSellsMilk;
-import com.cg.dms.entities.Farmer;
-import com.cg.dms.entities.PayToFarmer;
 import com.cg.dms.entities.Payment;
 import com.cg.dms.exception.FarmerNotFoundException;
 import com.cg.dms.exception.InvalidTransactionException;
@@ -24,7 +21,6 @@ import com.cg.dms.repository.ICustomerRepository;
 import com.cg.dms.repository.IDealerRepository;
 import com.cg.dms.repository.IDealerSellsMilkRepository;
 import com.cg.dms.repository.IFarmerRepository;
-import com.cg.dms.repository.IPayToFarmerRepository;
 
 @Service
 public class PaymentService {
@@ -45,8 +41,6 @@ public class PaymentService {
 	private ICompanyBuysMilkRepository icompanybuysmilkrepository;
 	@Autowired
 	private ICompanySellsMilkRepository icompanysellsmilkrepository;
-	@Autowired
-	private IPayToFarmerRepository ipaytofarmerrepository;
 
 	public Payment companyBuysMilkData(CompanyBuysMilk transaction)
 			throws InvalidTransactionException, PaymentAlreadyFoundException {

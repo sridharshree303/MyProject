@@ -5,6 +5,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.cg.dms.Milk;
+
 @Entity
 @Table
 public class CompanyBuysMilk extends Payment{
@@ -16,16 +18,22 @@ public class CompanyBuysMilk extends Payment{
 	@ManyToOne
 	@JoinColumn(name ="farmerId")
 	private Farmer farmer;
+	
+	private Milk milkType;
 
 	@ManyToOne
 	@JoinColumn(name="companyId")
 	private Company company;
-	
-	public Company getCompany() {
-		return company;
+
+	public CompanyBuysMilk() {
+		super();
+		
 	}
 
-	public void setCompany(Company company) {
+	public CompanyBuysMilk(Farmer farmer, Milk milkType, Company company) {
+		super();
+		this.farmer = farmer;
+		this.milkType = milkType;
 		this.company = company;
 	}
 
@@ -35,6 +43,27 @@ public class CompanyBuysMilk extends Payment{
 
 	public void setFarmer(Farmer farmer) {
 		this.farmer = farmer;
+	}
+
+	public Milk getMilkType() {
+		return milkType;
+	}
+
+	public void setMilkType(Milk milkType) {
+		this.milkType = milkType;
+	}
+
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
+	}
+
+	@Override
+	public String toString() {
+		return "CompanyBuysMilk [farmer=" + farmer + ", milkType=" + milkType + ", company=" + company + "]";
 	}
 
 }

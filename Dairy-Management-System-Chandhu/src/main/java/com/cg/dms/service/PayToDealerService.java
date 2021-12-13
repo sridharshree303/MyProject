@@ -5,10 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cg.dms.entities.PayToCompany;
 import com.cg.dms.entities.PayToDealer;
 import com.cg.dms.exception.InvalidTransactionException;
-import com.cg.dms.repository.ICompanyRepository;
 import com.cg.dms.repository.ICustomerRepository;
 import com.cg.dms.repository.IDealerRepository;
 import com.cg.dms.repository.IPayToDealerRepository;

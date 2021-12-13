@@ -3,10 +3,12 @@ package com.cg.dms.entities;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.Size;
 
 import com.cg.dms.PaymentMethod;
 
@@ -31,6 +33,7 @@ public abstract class AbstractTransaction implements Serializable {
 	private LocalDateTime paymentDate;
 
 	private PaymentMethod paymentmethod;
+	
 	
 	private long AccountNumber;
 
@@ -82,13 +85,13 @@ public abstract class AbstractTransaction implements Serializable {
 		AccountNumber = accountNumber;
 	}
 
-	public double getBillAmount() {
-		return billAmount;
-	}
-
-	public void setBillAmount(double billAmount) {
-		this.billAmount = billAmount;
-	}
+//	public double getBillAmount() {
+//		return billAmount;
+//	}
+//
+//	public void setBillAmount(double billAmount) {
+//		this.billAmount = billAmount;
+//	}
 
 	
 }
