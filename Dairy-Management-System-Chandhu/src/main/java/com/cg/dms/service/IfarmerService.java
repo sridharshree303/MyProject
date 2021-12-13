@@ -3,7 +3,6 @@ package com.cg.dms.service;
 import java.util.List;
 
 import com.cg.dms.entities.Farmer;
-import com.cg.dms.exception.DealerNotFoundException;
 import com.cg.dms.exception.FarmerAlreadyExistsException;
 import com.cg.dms.exception.FarmerNotFoundException;
 

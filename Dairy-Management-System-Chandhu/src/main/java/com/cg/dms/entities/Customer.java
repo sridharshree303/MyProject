@@ -11,7 +11,6 @@ public class Customer extends AbstractUser {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int customerId;
 	
-	
 
 	public int getCustomerId() {
 		return customerId;

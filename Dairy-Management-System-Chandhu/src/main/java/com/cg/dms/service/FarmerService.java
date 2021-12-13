@@ -8,17 +8,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cg.dms.entities.Dealer;
 import com.cg.dms.entities.Farmer;
-import com.cg.dms.exception.CustomerNotFoundException;
-import com.cg.dms.exception.DealerNotFoundException;
 import com.cg.dms.exception.FarmerAlreadyExistsException;
 import com.cg.dms.exception.FarmerNotFoundException;
 import com.cg.dms.repository.IFarmerRepository;
 
 @Service
 public class FarmerService implements IfarmerService {
-
+	
 	private static final Logger LOG = LoggerFactory.getLogger(FarmerService.class);
 	@Autowired
 	private IFarmerRepository iFarmerRepository;
@@ -77,8 +74,6 @@ public class FarmerService implements IfarmerService {
 		}
 		
 	}
-
-
-
-
+	
+	
 }
