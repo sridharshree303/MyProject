@@ -5,7 +5,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.cg.dms.Milk;
-import com.cg.dms.Role;
 
 @Entity
 public class CompanySellsMilk extends Payment {
