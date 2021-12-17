@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
+import com.cg.dms.User;
 import com.cg.dms.entities.UserLogin;
 import com.cg.dms.exception.InvalidTransactionException;
 import com.cg.dms.repository.IUserLoginRepository;
@@ -36,6 +37,7 @@ public class UserLoginService extends IUserLoginService {
 
 	public UserLogin loginUser(UserLogin userLogin) {
 		LOG.info("Login Service");
+		User role = iuserloginrepository.findByUserName(userLogin.getUserType());
 		tempUser = iuserloginrepository.findByUserName(userLogin.getUserName());
 		LOG.info("obj = "+ tempUser);
 			if (tempUser != null) {
