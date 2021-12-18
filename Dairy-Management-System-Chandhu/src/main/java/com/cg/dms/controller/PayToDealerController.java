@@ -25,7 +25,7 @@ public class PayToDealerController {
 	
 	private static final Logger LOG = LoggerFactory.getLogger(PayToDealerController.class);
 	
-	@PostMapping("/register")
+	@PostMapping("/payment")
 	public ResponseEntity<PayToDealer> customerPayToDealer(@RequestBody PayToDealer transaction){
 		LOG.info("customerPayToDealer controller");
 		PayToDealer pay = paytodealerservice.customerPayToDealer(transaction);

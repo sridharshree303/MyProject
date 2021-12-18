@@ -19,7 +19,6 @@ public class PayToFarmer extends AbstractTransaction {
 	 */
 	private static final long serialVersionUID = 5836082741974167052L;
 
-	private Status status;
 
 	private Bank bankName;
 
@@ -32,14 +31,20 @@ public class PayToFarmer extends AbstractTransaction {
 	@ManyToOne
 	@JoinColumn(name = "companyId")
 	private Company company;
+	
+	
 
 
-	public Status getStatus() {
-		return status;
+	public PayToFarmer() {
+		super();
 	}
 
-	public void setStatus(Status status) {
-		this.status = status;
+	public PayToFarmer(Bank bankName, Month month, Farmer farmer, Company company) {
+		super();
+		this.bankName = bankName;
+		this.month = month;
+		this.farmer = farmer;
+		this.company = company;
 	}
 
 	public Bank getBankName() {
@@ -76,7 +81,7 @@ public class PayToFarmer extends AbstractTransaction {
 
 	@Override
 	public String toString() {
-		return "PayToFarmer [status=" + status + ", bankName=" + bankName + ", month=" + month + ", farmer=" + farmer
+		return "PayToFarmer [ bankName=" + bankName + ", month=" + month + ", farmer=" + farmer
 				+ ", company=" + company + "]";
 	}
 

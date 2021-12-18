@@ -26,7 +26,7 @@ public class PayToCompanyController {
 	@Autowired
 	private PayToCompanyService paytocompanyservice;
 	
-	@PostMapping("/register")
+	@PostMapping("/payment")
 	public ResponseEntity<PayToCompany> dealerPayToCompany(@Valid @RequestBody PayToCompany transaction){
 		
 		LOG.info("dealerPayToCompany controller");

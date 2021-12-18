@@ -19,7 +19,6 @@ public class PayToCompany extends AbstractTransaction {
 	 */
 	private static final long serialVersionUID = 8103130774414467963L;
 
-	private Status status;
 
 	private Bank bankName;
 
@@ -38,22 +37,17 @@ public class PayToCompany extends AbstractTransaction {
 		
 	}
 
-	public PayToCompany(Status status, Bank bankName, Month month, Company company, Dealer dealer) {
+
+
+	public PayToCompany(Bank bankName, Month month, Company company, Dealer dealer) {
 		super();
-		this.status = status;
 		this.bankName = bankName;
 		this.month = month;
 		this.company = company;
 		this.dealer = dealer;
 	}
 
-	public Status getStatus() {
-		return status;
-	}
 
-	public void setStatus(Status status) {
-		this.status = status;
-	}
 
 	public Bank getBankName() {
 		return bankName;
@@ -89,7 +83,7 @@ public class PayToCompany extends AbstractTransaction {
 
 	@Override
 	public String toString() {
-		return "PayToCompany [status=" + status + ", bankName=" + bankName + ", month=" + month + ", company=" + company
+		return "PayToCompany [ bankName=" + bankName + ", month=" + month + ", company=" + company
 				+ ", dealer=" + dealer + "]";
 	}
 	

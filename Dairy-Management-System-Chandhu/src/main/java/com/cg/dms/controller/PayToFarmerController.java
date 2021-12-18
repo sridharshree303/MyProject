@@ -28,7 +28,7 @@ public class PayToFarmerController {
 	
 	private static final Logger LOG = LoggerFactory.getLogger(PayToFarmerController.class);
 	
-	@PostMapping("/register")
+	@PostMapping("/payment")
 	public ResponseEntity<PayToFarmer> companyPayToFarmer(@Valid @RequestBody PayToFarmer payment) {
 		LOG.info("companyPayToFarmer controller");
 		PayToFarmer pay = paytofarmerservice.companyPayToFarmer(payment);
