@@ -1,5 +1,6 @@
 package com.cg.dms.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -15,7 +16,7 @@ public class CompanySellsMilk extends Payment {
 	private static final long serialVersionUID = -5903323702835773942L;
 	
 
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.REMOVE})
 	@JoinColumn(name = "companyId")
 	private Company company;
 	

@@ -1,5 +1,6 @@
 package com.cg.dms.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -21,7 +22,7 @@ public class CompanyBuysMilk extends Payment{
 	
 	private Milk milkType;
 
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(name="companyId")
 	private Company company;
 

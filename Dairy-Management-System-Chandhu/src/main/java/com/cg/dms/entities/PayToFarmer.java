@@ -2,6 +2,7 @@ package com.cg.dms.entities;
 
 import java.time.Month;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -28,7 +29,7 @@ public class PayToFarmer extends AbstractTransaction {
 	@JoinColumn(name = "farmerId")
 	private Farmer farmer;
 
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(name = "companyId")
 	private Company company;
 	
