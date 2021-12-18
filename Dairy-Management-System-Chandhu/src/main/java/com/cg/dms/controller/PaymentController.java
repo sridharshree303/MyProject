@@ -1,6 +1,5 @@
 package com.cg.dms.controller;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -11,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,22 +18,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cg.dms.entities.Company;
 import com.cg.dms.entities.CompanyBuysMilk;
 import com.cg.dms.entities.CompanySellsMilk;
 import com.cg.dms.entities.DealerSellsMilk;
-import com.cg.dms.entities.Farmer;
 import com.cg.dms.entities.Payment;
-import com.cg.dms.exception.CompanyNotFoundException;
 import com.cg.dms.exception.FarmerNotFoundException;
 import com.cg.dms.exception.InvalidTransactionException;
 import com.cg.dms.service.CompanyBuysMilkService;
 import com.cg.dms.service.PaymentService;
 
-import springfox.documentation.service.Header;
-
 @RestController
 @RequestMapping("/payment")
+@CrossOrigin(origins = "*")
 public class PaymentController {
 
 	@Autowired

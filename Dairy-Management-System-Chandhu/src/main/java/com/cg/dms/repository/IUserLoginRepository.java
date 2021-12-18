@@ -10,8 +10,6 @@ import com.cg.dms.entities.UserLogin;
 public interface IUserLoginRepository extends JpaRepository<UserLogin, Integer> {
 
 	public abstract UserLogin findByUserName(String userName);
-
-	public abstract User findByUserName(User userType);
 	
 //	public abstract List<UserLogin> findByUser(User userType); 
 }

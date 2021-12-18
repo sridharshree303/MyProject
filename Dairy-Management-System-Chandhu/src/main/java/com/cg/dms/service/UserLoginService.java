@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.cg.dms.User;
 import com.cg.dms.entities.UserLogin;
+import com.cg.dms.exception.AppUserNotFoundException;
 import com.cg.dms.exception.InvalidTransactionException;
 import com.cg.dms.repository.IUserLoginRepository;
 
@@ -35,42 +36,39 @@ public class UserLoginService extends IUserLoginService {
 		}
 	}
 
-	public UserLogin loginUser(UserLogin userLogin) {
+	public UserLogin loginUser(UserLogin userLogin) throws AppUserNotFoundException {
 		LOG.info("Login Service");
-		User role = iuserloginrepository.findByUserName(userLogin.getUserType());
-		tempUser = iuserloginrepository.findByUserName(userLogin.getUserName());
-		LOG.info("obj = "+ tempUser);
-			if (tempUser != null) {
-				isLogged = true;
-				LOG.info("Login successful");
-				return tempUser;
+		if (iuserloginrepository.findByUserName(userLogin.getUserName()) == null) {
+			throw new AppUserNotFoundException("User name not valid..");
+		} else {
+			tempUser = iuserloginrepository.findByUserName(userLogin.getUserName());
+			if (userLogin.getUserName().equals(tempUser.getUserName())) {
+				if (userLogin.getPassword().equals(tempUser.getPassword())) {
+					if (userLogin.getUserType().equals(tempUser.getUserType())) {
+						LOG.info("UserLogin Successfully");
+						LOG.info("obj :" + tempUser);
+						isLogged = true;
+						return tempUser;
+					} else {
+						throw new InvalidTransactionException();
+					}
+				}
 			}
-			LOG.info("username not found");
-			throw new InvalidTransactionException();
-	
+		}
+		return null;
 	}
-	
+
 	public String logoutUser(String userName) {
 		LOG.info("LogOutUser Service");
-		if(isLogged) {
+		if (isLogged) {
 			LOG.info("Logout successful");
 			isLogged = false;
 			return "User Logged out successfully";
-		}else {
+		} else {
 			LOG.info("Logout Failed");
 			throw new InvalidTransactionException("LogOut Unsuccessful");
 		}
-		
+
 	}
-	
 
 }
-
-
-
-
-
-
-
-
-

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.dms.entities.UserLogin;
+import com.cg.dms.exception.AppUserNotFoundException;
 import com.cg.dms.service.UserLoginService;
 
 @RestController
@@ -35,7 +36,7 @@ public class UserLoginController {
 	}
 
 	@PostMapping("/loginuser")
-	public ResponseEntity<UserLogin> loginUser(@RequestBody UserLogin userLogin) {
+	public ResponseEntity<UserLogin> loginUser(@RequestBody UserLogin userLogin) throws AppUserNotFoundException {
 		LOG.info("loginUser Controller");
 		UserLogin user = userloginservice.loginUser(userLogin);
 		HttpHeaders headers = new HttpHeaders();
