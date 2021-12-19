@@ -22,7 +22,7 @@ public class CompanyBuysMilk extends Payment{
 	
 	private Milk milkType;
 
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne
 	@JoinColumn(name="companyId")
 	private Company company;
 

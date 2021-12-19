@@ -16,7 +16,7 @@ public class CompanySellsMilk extends Payment {
 	private static final long serialVersionUID = -5903323702835773942L;
 	
 
-	@ManyToOne(cascade = {CascadeType.REMOVE})
+	@ManyToOne
 	@JoinColumn(name = "companyId")
 	private Company company;
 	

@@ -29,7 +29,7 @@ public class PayToFarmer extends AbstractTransaction {
 	@JoinColumn(name = "farmerId")
 	private Farmer farmer;
 
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne
 	@JoinColumn(name = "companyId")
 	private Company company;
 	
